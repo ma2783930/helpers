@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Http\Testing\MimeType;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\File;
 
 if (!function_exists('convert_base64_to_file')) {
@@ -102,5 +104,22 @@ if (!function_exists('binary')) {
     function binary()
     {
         return app('binary');
+    }
+}
+
+if (!function_exists('file_from_binary')) {
+    function file_from_binary($binaryString): UploadedFile
+    {
+        $name = Str::uuid();
+        $tmpFile = tmpfile();
+        fwrite($tmpFile, $binaryString);
+
+        return new UploadedFile(
+            stream_get_meta_data($tmpFile)['uri'],
+            $name,
+            MimeType::from($name),
+            0,
+            true
+        );
     }
 }
