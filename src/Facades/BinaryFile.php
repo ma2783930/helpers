@@ -5,7 +5,7 @@ namespace Helpers\Facades;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Illuminate\Http\UploadedFile
+ * @method static \Illuminate\Http\UploadedFile create($binaryString)
  */
 class BinaryFile extends Facade
 {

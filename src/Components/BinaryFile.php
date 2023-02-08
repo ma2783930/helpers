@@ -16,7 +16,7 @@ class BinaryFile
      * @param $binaryString
      * @return \Illuminate\Http\UploadedFile
      */
-    public function make($binaryString): UploadedFile
+    public function create($binaryString): UploadedFile
     {
         $name = Str::uuid();
         $tmpFile = tmpfile();
