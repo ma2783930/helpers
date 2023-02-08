@@ -2,7 +2,6 @@
 
 namespace Helpers\Providers;
 
-use Helpers\Components\BinaryFile;
 use Illuminate\Support\ServiceProvider;
 
 class HelpersServiceProvider extends ServiceProvider
@@ -14,9 +13,7 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind('binary', function () {
-            return new BinaryFile;
-        });
+        //
     }
 
     /**

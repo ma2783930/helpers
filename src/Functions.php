@@ -7,13 +7,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\File\File;
 
-if (!function_exists('convert_base64_to_file')) {
+if (!function_exists('base64_to_file')) {
 
     /**
      * @param string $value
      * @return \Illuminate\Http\UploadedFile
      */
-    function convert_base64_to_file(string $value): UploadedFile
+    function base64_to_file(string $value): UploadedFile
     {
         if (str_contains($value, ';base64')) {
             [, $value] = explode(';', $value);
@@ -42,6 +42,29 @@ if (!function_exists('convert_base64_to_file')) {
         return $file;
     }
 
+}
+
+if (!function_exists('binary_to_file')) {
+    function binary_to_file($binaryString): UploadedFile
+    {
+        $name = Str::uuid();
+        $tmpFile = tmpfile();
+        fwrite($tmpFile, $binaryString);
+
+        $file = new UploadedFile(
+            stream_get_meta_data($tmpFile)['uri'],
+            $name,
+            MimeType::from($name),
+            0,
+            true
+        );
+
+        app()->terminating(function () use ($tmpFile) {
+            fclose($tmpFile);
+        });
+
+        return $file;
+    }
 }
 
 if (!function_exists('can_one')) {
@@ -104,22 +127,5 @@ if (!function_exists('binary')) {
     function binary()
     {
         return app('binary');
-    }
-}
-
-if (!function_exists('file_from_binary')) {
-    function file_from_binary($binaryString): UploadedFile
-    {
-        $name = Str::uuid();
-        $tmpFile = tmpfile();
-        fwrite($tmpFile, $binaryString);
-
-        return new UploadedFile(
-            stream_get_meta_data($tmpFile)['uri'],
-            $name,
-            MimeType::from($name),
-            0,
-            true
-        );
     }
 }
