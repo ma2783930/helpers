@@ -1,0 +1,36 @@
+{
+    "name": "ma2783930/helpers",
+    "description": "Laravel helpers package",
+    "type": "library",
+    "homepage": "https://github.com/ma2783930/helpers",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Helpers\\": "src/"
+        },
+        "files": [
+            "src/Functions.php"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Helpers\\Providers\\HelpersServiceProvider"
+            ],
+            "aliases": {
+                "BinaryFile": "Helpers\\Facades\\BinaryFile"
+            }
+        }
+    },
+    "authors": [
+        {
+            "name": "m.alizadeh",
+            "email": "majid.alizadeh22@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.0.2",
+        "laravel/framework": "^7|^8|^9"
+    }
+}
