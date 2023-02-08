@@ -59,9 +59,9 @@ if (!function_exists('can_one')) {
 if (!function_exists('user')) {
 
     /**
-     * @return \Illuminate\Contracts\Auth\Authenticatable
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    function user(): Authenticatable
+    function user(): ?Authenticatable
     {
         return auth()->user();
     }
