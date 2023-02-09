@@ -16,7 +16,7 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->registerValidationRules();
+        //
     }
 
     /**
@@ -26,9 +26,7 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Rule::macro('modelExists', function ($table, $column = 'id', $withoutExpired = true) {
-            return new ModelExists($table, $column, $withoutExpired);
-        });
+        $this->registerValidationRules();
     }
 
     /**
@@ -37,6 +35,10 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function registerValidationRules(): void
     {
+        Rule::macro('modelExists', function ($table, $column = 'id', $withoutExpired = true) {
+            return new ModelExists($table, $column, $withoutExpired);
+        });
+
         Validator::extend('first_password', function ($attribute, $value, $parameters, $validator) {
             $user = auth()->user();
             return $user->checkUserPassword($value);
