@@ -4,9 +4,6 @@
     "type": "library",
     "homepage": "https://github.com/ma2783930/helpers",
     "license": "MIT",
-    "repositories": [
-        {"type": "composer", "url": "https://ma2783930.repo.repman.io"}
-    ],
     "autoload": {
         "psr-4": {
             "Helpers\\": "src/"
