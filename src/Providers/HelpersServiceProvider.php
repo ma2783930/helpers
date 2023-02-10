@@ -39,6 +39,11 @@ class HelpersServiceProvider extends ServiceProvider
             return new ModelExists($table, $column, $withoutExpired);
         });
 
+        Validator::extend('jalali_year', function ($attribute, $value, $parameters, $validator) {
+            $year = (int)$value;
+            return $year > 1357 && $year < (int)verta()->addYears(10)->format('Y');
+        });
+
         Validator::extend('first_password', function ($attribute, $value, $parameters, $validator) {
             $user = auth()->user();
             return $user->checkUserPassword($value);
