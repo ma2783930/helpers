@@ -47,7 +47,7 @@ if (!function_exists('base64_to_file')) {
 if (!function_exists('binary_to_file')) {
     function binary_to_file($binaryString): UploadedFile
     {
-        $name = Str::uuid();
+        $name    = Str::uuid();
         $tmpFile = tmpfile();
         fwrite($tmpFile, $binaryString);
 
@@ -127,5 +127,33 @@ if (!function_exists('binary')) {
     function binary()
     {
         return app('binary');
+    }
+}
+
+
+if (!function_exists('en_numbers_to_persian')) {
+    /**
+     * @param $string
+     * @return array|string
+     */
+    function en_numbers_to_persian($string): array|string
+    {
+        $characters = [
+            '1' => '۱',
+            '2' => '۲',
+            '3' => '۳',
+            '4' => '۴',
+            '5' => '۵',
+            '6' => '۶',
+            '7' => '۷',
+            '8' => '۸',
+            '9' => '۹',
+            '0' => '۰',
+        ];
+        return str_replace(
+            array_keys($characters),
+            array_values($characters),
+            $string
+        );
     }
 }
