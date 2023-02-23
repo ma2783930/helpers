@@ -40,9 +40,9 @@ trait HasPlace
     public function getPlaceId(string $fieldName = null): int|null
     {
         $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
-        $countryId  = $this->getAttribute(str(sprintf('%s_country_id', $name))->trim('_')->camel()->toString());
-        $provinceId = $this->getAttribute(str(sprintf('%s_province_id', $name))->trim('_')->camel()->toString());
-        $cityId     = $this->getAttribute(str(sprintf('%s_city_id', $name))->trim('_')->camel()->toString());
+        $countryId  = $this->getAttribute(str(sprintf('%s_country_id', $name))->trim('_')->snake()->toString());
+        $provinceId = $this->getAttribute(str(sprintf('%s_province_id', $name))->trim('_')->snake()->toString());
+        $cityId     = $this->getAttribute(str(sprintf('%s_city_id', $name))->trim('_')->snake()->toString());
 
         if (!empty($cityId)) return $cityId;
         if (!empty($provinceId)) return $provinceId;
