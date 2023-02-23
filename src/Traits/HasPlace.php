@@ -32,4 +32,23 @@ trait HasPlace
             ]);
         }
     }
+
+    /**
+     * @param string $name
+     * @return int|null
+     */
+    public function getPlaceId(string $name): int|null
+    {
+        $continentId = $this->getAttribute(sprintf('%s_continent_id', $name));
+        $countryId = $this->getAttribute(sprintf('%s_country_id', $name));
+        $provinceId = $this->getAttribute(sprintf('%s_province_id', $name));
+        $cityId = $this->getAttribute(sprintf('%s_city_id', $name));
+
+        if (!empty($cityId)) return $cityId;
+        if (!empty($provinceId)) return $provinceId;
+        if (!empty($countryId)) return $countryId;
+        if (!empty($continentId)) return $continentId;
+
+        return null;
+    }
 }
