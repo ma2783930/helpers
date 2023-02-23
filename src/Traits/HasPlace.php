@@ -40,14 +40,35 @@ trait HasPlace
     public function getPlaceId(string $name): int|null
     {
         $continentId = $this->getAttribute(sprintf('%s_continent_id', $name));
-        $countryId = $this->getAttribute(sprintf('%s_country_id', $name));
-        $provinceId = $this->getAttribute(sprintf('%s_province_id', $name));
-        $cityId = $this->getAttribute(sprintf('%s_city_id', $name));
+        $countryId   = $this->getAttribute(sprintf('%s_country_id', $name));
+        $provinceId  = $this->getAttribute(sprintf('%s_province_id', $name));
+        $cityId      = $this->getAttribute(sprintf('%s_city_id', $name));
 
         if (!empty($cityId)) return $cityId;
         if (!empty($provinceId)) return $provinceId;
         if (!empty($countryId)) return $countryId;
         if (!empty($continentId)) return $continentId;
+
+        return null;
+    }
+
+    public function getPlaceName(string $name): string|null
+    {
+        $countryRelation  = sprintf('%sCountry', $name);
+        $provinceRelation = sprintf('%sProvince', $name);
+        $cityRelation     = sprintf('%sCity', $name);
+
+        if (!empty($this->{$cityRelation})) {
+            return sprintf('%s / %s / %s', $this->{$cityRelation}->name, $this->{$provinceRelation}->name, $this->{$countryRelation}->name);
+        }
+
+        if (!empty($this->{$provinceRelation})) {
+            return sprintf('%s / %s', $this->{$provinceRelation}->name, $this->{$countryRelation}->name);
+        }
+
+        if (!empty($this->{$countryRelation})) {
+            return $this->{$countryRelation}->name;
+        }
 
         return null;
     }
