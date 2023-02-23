@@ -39,9 +39,9 @@ trait HasPlace
      */
     public function getPlaceId(string $name): int|null
     {
-        $countryId   = $this->getAttribute(sprintf('%s_country_id', $name));
-        $provinceId  = $this->getAttribute(sprintf('%s_province_id', $name));
-        $cityId      = $this->getAttribute(sprintf('%s_city_id', $name));
+        $countryId  = $this->getAttribute(str(sprintf('%s_country_id', $name))->trim('_')->camel()->toString());
+        $provinceId = $this->getAttribute(str(sprintf('%s_province_id', $name))->trim('_')->camel()->toString());
+        $cityId     = $this->getAttribute(str(sprintf('%s_city_id', $name))->trim('_')->camel()->toString());
 
         if (!empty($cityId)) return $cityId;
         if (!empty($provinceId)) return $provinceId;
@@ -50,14 +50,14 @@ trait HasPlace
         return null;
     }
 
-    public function getPlaceName(string $name): string|null
+    public function getPlaceName(string $name = null): string|null
     {
-        $countryRelation  = sprintf('%sCountry', $name);
-        $provinceRelation = sprintf('%sProvince', $name);
-        $cityRelation     = sprintf('%sCity', $name);
+        $countryRelation  = str(sprintf('%s_country', $name))->trim('_')->camel()->toString();
+        $provinceRelation = str(sprintf('%s_province', $name))->trim('_')->camel()->toString();
+        $cityRelation     = str(sprintf('%s_city', $name))->trim('_')->camel()->toString();
 
         if (!empty($this->{$cityRelation})) {
-            return sprintf('%s / %s / %s', $this->{$countryRelation}->name, $this->{$provinceRelation}->name, $this->{$cityRelation}->name );
+            return sprintf('%s / %s / %s', $this->{$countryRelation}->name, $this->{$provinceRelation}->name, $this->{$cityRelation}->name);
         }
 
         if (!empty($this->{$provinceRelation})) {
