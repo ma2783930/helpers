@@ -163,19 +163,19 @@ if (!function_exists('place_fields')) {
     {
         if (empty($values)) {
             return [
-                str($name)->append('_continent_id') => null,
-                str($name)->append('_country_id')   => null,
-                str($name)->append('_province_id')  => null,
-                str($name)->append('_city_id')      => null
+                str($name)->append('_continent_id')->toString() => null,
+                str($name)->append('_country_id')->toString()   => null,
+                str($name)->append('_province_id')->toString()  => null,
+                str($name)->append('_city_id')->toString()      => null
             ];
         }
 
         $place = \Helpers\Models\View\Place::for($value)->firstOrFail();
         return [
-            str($name)->append('_continent_id') => $place->continent_id,
-            str($name)->append('_country_id')   => $place->country_id,
-            str($name)->append('_province_id')  => $place->province_id,
-            str($name)->append('_city_id')      => $place->city_id
+            str($name)->append('_continent_id')->toString() => $place->continent_id,
+            str($name)->append('_country_id')->toString()   => $place->country_id,
+            str($name)->append('_province_id') ->toString() => $place->province_id,
+            str($name)->append('_city_id')->toString()      => $place->city_id
         ];
     }
 }
