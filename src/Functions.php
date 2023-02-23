@@ -161,7 +161,7 @@ if (!function_exists('en_numbers_to_persian')) {
 if (!function_exists('place_fields')) {
     function place_fields($name, $value): array
     {
-        if (empty($values)) {
+        if (empty($value)) {
             return [
                 str($name)->append('_continent_id')->toString() => null,
                 str($name)->append('_country_id')->toString()   => null,
