@@ -179,7 +179,9 @@ if (!function_exists('place_fields')) {
 
         $place = Place::for($value)->firstOrFail();
         return [
-            str($name)->append('_continent_id')->trim('_')->toString() => !empty($place->country_id) ? DB::table('continents')->where('id', $place->country_id)->value('id') : null,
+            str($name)->append('_continent_id')->trim('_')->toString() => !empty($place->country_id) ?
+                DB::table('countries')->where('id', $place->country_id)->value('continent_id') :
+                null,
             str($name)->append('_country_id')->trim('_')->toString()   => $place->country_id,
             str($name)->append('_province_id')->trim('_')->toString()  => $place->province_id,
             str($name)->append('_city_id')->trim('_')->toString()      => $place->city_id
