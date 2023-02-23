@@ -165,7 +165,7 @@ if (!function_exists('place_fields')) {
      * @param string|null $fieldName
      * @return array|null[]
      */
-    function place_fields(integer $value, string $fieldName = null): array
+    function place_fields(int $value, string $fieldName = null): array
     {
         $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
         if (empty($value)) {
