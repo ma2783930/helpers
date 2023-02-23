@@ -23,6 +23,7 @@ class Place extends Model
     protected $primaryKey   = null;
 
     protected $casts   = [
+        'id'           => 'integer',
         'continent_id' => 'integer',
         'country_id'   => 'integer',
         'province_id'  => 'integer',
