@@ -161,11 +161,11 @@ if (!function_exists('en_numbers_to_persian')) {
 
 if (!function_exists('place_fields')) {
     /**
-     * @param int         $value
+     * @param int|null    $value
      * @param string|null $fieldName
      * @return array|null[]
      */
-    function place_fields(int $value, string $fieldName = null): array
+    function place_fields(int $value = null, string $fieldName = null): array
     {
         $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
         if (empty($value)) {
