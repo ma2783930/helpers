@@ -34,11 +34,12 @@ trait HasPlace
     }
 
     /**
-     * @param string $name
+     * @param string|null $fieldName
      * @return int|null
      */
-    public function getPlaceId(string $name): int|null
+    public function getPlaceId(string $fieldName = null): int|null
     {
+        $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
         $countryId  = $this->getAttribute(str(sprintf('%s_country_id', $name))->trim('_')->camel()->toString());
         $provinceId = $this->getAttribute(str(sprintf('%s_province_id', $name))->trim('_')->camel()->toString());
         $cityId     = $this->getAttribute(str(sprintf('%s_city_id', $name))->trim('_')->camel()->toString());
@@ -50,8 +51,13 @@ trait HasPlace
         return null;
     }
 
-    public function getPlaceName(string $name = null): string|null
+    /**
+     * @param string|null $fieldName
+     * @return string|null
+     */
+    public function getPlaceName(string $fieldName = null): string|null
     {
+        $name = !empty($fieldName) ? str($fieldName)->camel()->toString() : '';
         $countryRelation  = str(sprintf('%s_country', $name))->trim('_')->camel()->toString();
         $provinceRelation = str(sprintf('%s_province', $name))->trim('_')->camel()->toString();
         $cityRelation     = str(sprintf('%s_city', $name))->trim('_')->camel()->toString();

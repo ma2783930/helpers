@@ -1,5 +1,6 @@
 <?php
 
+use Helpers\Models\View\Place;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Testing\MimeType;
 use Illuminate\Http\UploadedFile;
@@ -159,23 +160,29 @@ if (!function_exists('en_numbers_to_persian')) {
 }
 
 if (!function_exists('place_fields')) {
-    function place_fields($name, $value): array
+    /**
+     * @param int         $value
+     * @param string|null $fieldName
+     * @return array|null[]
+     */
+    function place_fields(integer $value, string $fieldName = null): array
     {
+        $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
         if (empty($value)) {
             return [
-                str($name)->append('_continent_id')->toString() => null,
-                str($name)->append('_country_id')->toString()   => null,
-                str($name)->append('_province_id')->toString()  => null,
-                str($name)->append('_city_id')->toString()      => null
+                str($name)->append('_continent_id')->trim('_')->toString() => null,
+                str($name)->append('_country_id')->trim('_')->toString()   => null,
+                str($name)->append('_province_id')->trim('_')->toString()  => null,
+                str($name)->append('_city_id')->trim('_')->toString()      => null
             ];
         }
 
-        $place = \Helpers\Models\View\Place::for($value)->firstOrFail();
+        $place = Place::for($value)->firstOrFail();
         return [
-            str($name)->append('_continent_id')->toString() => $place->continent_id,
-            str($name)->append('_country_id')->toString()   => $place->country_id,
-            str($name)->append('_province_id') ->toString() => $place->province_id,
-            str($name)->append('_city_id')->toString()      => $place->city_id
+            str($name)->append('_continent_id')->trim('_')->toString() => $place->continent_id,
+            str($name)->append('_country_id')->trim('_')->toString()   => $place->country_id,
+            str($name)->append('_province_id')->trim('_')->toString()  => $place->province_id,
+            str($name)->append('_city_id')->trim('_')->toString()      => $place->city_id
         ];
     }
 }

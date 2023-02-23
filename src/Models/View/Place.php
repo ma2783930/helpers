@@ -5,6 +5,17 @@ namespace Helpers\Models\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property integer id
+ * @property integer continent_id
+ * @property integer country_id
+ * @property integer province_id
+ * @property integer city_id
+ * @property string continent_name
+ * @property string country_name
+ * @property string province_name
+ * @property string city_name
+ */
 class Place extends Model
 {
     protected $table        = 'places';
