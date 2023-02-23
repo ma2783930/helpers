@@ -157,3 +157,25 @@ if (!function_exists('en_numbers_to_persian')) {
         );
     }
 }
+
+if (!function_exists('place_fields')) {
+    function place_fields($name, $value): array
+    {
+        if (empty($values)) {
+            return [
+                str($name)->append('_continent_id') => null,
+                str($name)->append('_country_id')   => null,
+                str($name)->append('_province_id')  => null,
+                str($name)->append('_city_id')      => null
+            ];
+        }
+
+        $place = \Helpers\Models\View\Place::for($value)->firstOrFail();
+        return [
+            str($name)->append('_continent_id') => $place->continent_id,
+            str($name)->append('_country_id')   => $place->country_id,
+            str($name)->append('_province_id')  => $place->province_id,
+            str($name)->append('_city_id')      => $place->city_id
+        ];
+    }
+}
