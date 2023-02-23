@@ -59,11 +59,11 @@ trait HasPlace
         $cityRelation     = sprintf('%sCity', $name);
 
         if (!empty($this->{$cityRelation})) {
-            return sprintf('%s / %s / %s', $this->{$cityRelation}->name, $this->{$provinceRelation}->name, $this->{$countryRelation}->name);
+            return sprintf('%s / %s / %s', $this->{$countryRelation}->name, $this->{$provinceRelation}->name, $this->{$cityRelation}->name );
         }
 
         if (!empty($this->{$provinceRelation})) {
-            return sprintf('%s / %s', $this->{$provinceRelation}->name, $this->{$countryRelation}->name);
+            return sprintf('%s / %s', $this->{$countryRelation}->name, $this->{$provinceRelation}->name);
         }
 
         if (!empty($this->{$countryRelation})) {
