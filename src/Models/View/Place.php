@@ -11,10 +11,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer country_id
  * @property integer province_id
  * @property integer city_id
- * @property string continent_name
- * @property string country_name
- * @property string province_name
- * @property string city_name
+ * @property string  continent_name
+ * @property string  country_name
+ * @property string  province_name
+ * @property string  city_name
  */
 class Place extends Model
 {
@@ -23,9 +23,10 @@ class Place extends Model
     protected $primaryKey   = null;
 
     protected $casts   = [
-        'country_id'  => 'integer',
-        'province_id' => 'integer',
-        'city_id'     => 'integer'
+        'continent_id' => 'integer',
+        'country_id'   => 'integer',
+        'province_id'  => 'integer',
+        'city_id'      => 'integer'
     ];
     protected $appends = ['id'];
 
