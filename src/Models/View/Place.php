@@ -62,8 +62,7 @@ class Place extends Model
      */
     public function scopeFor(Builder $builder, int $id): Builder
     {
-        return $builder->where('continent_id', $id)
-                       ->orWhere('country_id', $id)
+        return $builder->where('country_id', $id)
                        ->orWhere('province_id', $id)
                        ->orWhere('city_id', $id);
     }
