@@ -118,17 +118,9 @@ class Place extends Model
     /**
      * @return bool
      */
-    public function getIsContinentAttribute(): bool
-    {
-        return !empty($this->continent_id) && empty($this->country_id) && empty($this->province_id) && empty($this->city_id);
-    }
-
-    /**
-     * @return bool
-     */
     public function getIsCountryAttribute(): bool
     {
-        return !empty($this->continent_id) && !empty($this->country_id) && empty($this->province_id) && empty($this->city_id);
+        return !empty($this->country_id) && empty($this->province_id) && empty($this->city_id);
     }
 
     /**
@@ -136,7 +128,7 @@ class Place extends Model
      */
     public function getIsProvinceAttribute(): bool
     {
-        return !empty($this->continent_id) && !empty($this->country_id) && !empty($this->province_id) && empty($this->city_id);
+        return !empty($this->country_id) && !empty($this->province_id) && empty($this->city_id);
     }
 
     /**
@@ -144,7 +136,7 @@ class Place extends Model
      */
     public function getIsCityAttribute(): bool
     {
-        return !empty($this->continent_id) && !empty($this->country_id) && !empty($this->province_id) && !empty($this->city_id);
+        return !empty($this->country_id) && !empty($this->province_id) && !empty($this->city_id);
     }
 
     #endregion
