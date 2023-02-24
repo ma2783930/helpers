@@ -31,21 +31,7 @@ class Place extends Model
     ];
     protected $appends = ['id'];
 
-    /**
-     * @return int
-     */
-    public function getIdAttribute(): int
-    {
-        if (!empty($this->country_id) && !empty($this->province_id) && !empty($this->city_id)) {
-            return $this->city_id;
-        }
-
-        if (!empty($this->country_id) && !empty($this->province_id)) {
-            return $this->province_id;
-        }
-
-        return $this->country_id;
-    }
+    #region Scopes
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $builder
@@ -96,6 +82,26 @@ class Place extends Model
                        ->orderBy('city_name');
     }
 
+    #endregion
+
+    #region Virtual-Attributes
+
+    /**
+     * @return int
+     */
+    public function getIdAttribute(): int
+    {
+        if (!empty($this->country_id) && !empty($this->province_id) && !empty($this->city_id)) {
+            return $this->city_id;
+        }
+
+        if (!empty($this->country_id) && !empty($this->province_id)) {
+            return $this->province_id;
+        }
+
+        return $this->country_id;
+    }
+
     /**
      * @return string
      */
@@ -108,4 +114,38 @@ class Place extends Model
             $this->city_name
         ]), $separator);
     }
+
+    /**
+     * @return bool
+     */
+    public function getIsContinentAttribute(): bool
+    {
+        return !empty($this->continent_id) && empty($this->country_id) && empty($this->province_id) && empty($this->city_id);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCountryAttribute(): bool
+    {
+        return !empty($this->continent_id) && !empty($this->country_id) && empty($this->province_id) && empty($this->city_id);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsProvinceAttribute(): bool
+    {
+        return !empty($this->continent_id) && !empty($this->country_id) && !empty($this->province_id) && empty($this->city_id);
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsCityAttribute(): bool
+    {
+        return !empty($this->continent_id) && !empty($this->country_id) && !empty($this->province_id) && !empty($this->city_id);
+    }
+
+    #endregion
 }
