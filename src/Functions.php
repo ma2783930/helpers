@@ -46,6 +46,10 @@ if (!function_exists('base64_to_file')) {
 }
 
 if (!function_exists('binary_to_file')) {
+    /**
+     * @param $binaryString
+     * @return \Illuminate\Http\UploadedFile
+     */
     function binary_to_file($binaryString): UploadedFile
     {
         $name    = Str::uuid();
@@ -79,7 +83,6 @@ if (!function_exists('can_one')) {
         $gates = implode(',', $permissions);
         return "can.one:{$gates}";
     }
-
 }
 
 if (!function_exists('user')) {
@@ -91,7 +94,6 @@ if (!function_exists('user')) {
     {
         return auth()->user();
     }
-
 }
 
 if (!function_exists('get_sequence_next_value')) {
@@ -107,7 +109,6 @@ if (!function_exists('get_sequence_next_value')) {
             get_object_vars($sequenceQuery[0])
         );
     }
-
 }
 
 if (!function_exists('is_binary')) {
@@ -120,12 +121,14 @@ if (!function_exists('is_binary')) {
     {
         return false === mb_detect_encoding((string)$value, null, true);
     }
-
 }
 
 
 if (!function_exists('binary')) {
-    function binary()
+    /**
+     * @return mixed
+     */
+    function binary(): mixed
     {
         return app('binary');
     }
