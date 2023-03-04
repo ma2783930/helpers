@@ -42,7 +42,10 @@ class CleanInputs extends TransformsRequest
      */
     protected function transform($key, $value): ?string
     {
-        return !empty($value) ? htmlspecialchars($value) : null;
+        if (empty($value)) return $value;
+        if (is_numeric($value)) return $value;
+
+        return htmlspecialchars($value);
     }
 
     /**
