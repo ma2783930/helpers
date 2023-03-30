@@ -2,6 +2,7 @@
 
 namespace Helpers\Providers;
 
+use Helpers\Http\Middleware\LicenseChecker;
 use Helpers\Models\View\Place;
 use Helpers\Rules\ModelExists;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,12 @@ class HelpersServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerValidationRules();
+        $this->mergeConfigFrom(__DIR__ . '/../../config/license.php', 'helpers');
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'helpers');
+        $this->publishes([
+            __DIR__ . '/../../resources/views' => resource_path('views/vendor/helpers'),
+        ]);
+        $this->app['router']->pushMiddlewareToGroup('web', LicenseChecker::class);
     }
 
     /**
