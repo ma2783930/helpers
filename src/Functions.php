@@ -80,7 +80,16 @@ if (!function_exists('can_one')) {
      */
     function can_one(...$permissions): string
     {
-        $gates = implode(',', $permissions);
+        $collection = [];
+        foreach ($permissions as $permission) {
+            if (property_exists($permission, 'value')) {
+                $collection[] = $permission->value;
+            } else {
+                $collection[] = $permission;
+            }
+        }
+
+        $gates = implode(',', $collection);
         return "can.one:{$gates}";
     }
 }
