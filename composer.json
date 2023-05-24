@@ -28,11 +28,11 @@
             "email": "majid.alizadeh22@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "php": "^8.0.2",
-        "laravel/framework": "^7|^8|^9|^10",
-        "ma2783930/eloquent-traits": "dev-master",
-        "hekmatinasser/verta": "^2"
+        "laravel/framework": "^8|^9|^10.12",
+        "hekmatinasser/verta": "^8.3",
+        "ma2783930/eloquent-traits": "^1.0"
     }
 }
