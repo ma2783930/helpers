@@ -2,6 +2,7 @@
 
 namespace Helpers\Providers;
 
+use Helpers\Classes\IPJEncryption;
 use Helpers\Http\Middleware\LicenseChecker;
 use Helpers\Models\View\Place;
 use Helpers\Rules\ModelExists;
@@ -18,7 +19,13 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $key = $this->app['config']['encryption.enc_pw'];
+
+        if (str_starts_with($key, 'base64:')) {
+            $key = base64_decode(substr($key, 7));
+        }
+
+        $this->app->bind('ipj-encryption', fn() => new IPJEncryption($key));
     }
 
     /**
@@ -29,6 +36,7 @@ class HelpersServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerValidationRules();
+        $this->mergeConfigFrom(__DIR__ . '/../../config/encryption.php', 'helpers');
         $this->mergeConfigFrom(__DIR__ . '/../../config/license.php', 'helpers');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'helpers');
         $this->publishes([

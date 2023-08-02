@@ -33,6 +33,7 @@
         "php": "^8.0.2",
         "laravel/framework": "^8|^9|^10.12",
         "hekmatinasser/verta": "^8.3",
-        "ma2783930/eloquent-traits": "^1.0"
+        "ma2783930/eloquent-traits": "^1.0",
+        "ext-openssl": "*"
     }
 }
