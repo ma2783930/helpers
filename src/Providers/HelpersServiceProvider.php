@@ -43,7 +43,7 @@ class HelpersServiceProvider extends ServiceProvider
             __DIR__ . '/../../resources/views' => resource_path('views/vendor/helpers'),
             __DIR__ . '/../../config/encryption.php' => config_path('encryption.php'),
         ]);
-        $this->app['router']->pushMiddlewareToGroup('web', LicenseChecker::class);
+        //$this->app['router']->pushMiddlewareToGroup('web', LicenseChecker::class);
     }
 
     /**
