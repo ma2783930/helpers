@@ -19,7 +19,7 @@ class HelpersServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $key = $this->app['config']['encryption.enc_pw'];
+        $key = config('encryption.enc_pw');
 
         if (str_starts_with($key, 'base64:')) {
             $key = base64_decode(substr($key, 7));
@@ -36,11 +36,12 @@ class HelpersServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerValidationRules();
-        $this->mergeConfigFrom(__DIR__ . '/../../config/encryption.php', 'helpers');
-        $this->mergeConfigFrom(__DIR__ . '/../../config/license.php', 'helpers');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/encryption.php', 'encryption');
+        $this->mergeConfigFrom(__DIR__ . '/../../config/license.php', 'license');
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'helpers');
         $this->publishes([
             __DIR__ . '/../../resources/views' => resource_path('views/vendor/helpers'),
+            __DIR__ . '/../../config/encryption.php' => config_path('encryption.php'),
         ]);
         $this->app['router']->pushMiddlewareToGroup('web', LicenseChecker::class);
     }
