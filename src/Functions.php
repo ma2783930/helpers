@@ -113,7 +113,7 @@ if (!function_exists('get_sequence_next_value')) {
      */
     function get_sequence_next_value($sequence_name): int
     {
-        $sequenceQuery = DB::select(DB::raw("SELECT NEXT VALUE FOR [dbo].[${sequence_name}]"));
+        $sequenceQuery = DB::select(DB::raw("SELECT NEXT VALUE FOR [dbo].[$sequence_name]"));
         return (int)implode(
             get_object_vars($sequenceQuery[0])
         );
