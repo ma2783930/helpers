@@ -1,6 +1,5 @@
 <?php
 
-use Helpers\Models\View\Place;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Testing\MimeType;
 use Illuminate\Http\UploadedFile;
