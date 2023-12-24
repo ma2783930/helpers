@@ -170,33 +170,3 @@ if (!function_exists('en_numbers_to_persian')) {
         );
     }
 }
-
-if (!function_exists('place_fields')) {
-    /**
-     * @param int|null    $value
-     * @param string|null $fieldName
-     * @return array|null[]
-     */
-    function place_fields(int $value = null, string $fieldName = null): array
-    {
-        $name = !empty($fieldName) ? str($fieldName)->snake()->toString() : '';
-        if (empty($value)) {
-            return [
-                str($name)->append('_continent_id')->trim('_')->toString() => null,
-                str($name)->append('_country_id')->trim('_')->toString()   => null,
-                str($name)->append('_province_id')->trim('_')->toString()  => null,
-                str($name)->append('_city_id')->trim('_')->toString()      => null
-            ];
-        }
-
-        $place = Place::for($value)->firstOrFail();
-        return [
-            str($name)->append('_continent_id')->trim('_')->toString() => !empty($place->country_id) ?
-                (int)DB::table('countries')->where('id', $place->country_id)->value('continent_id') :
-                null,
-            str($name)->append('_country_id')->trim('_')->toString()   => $place->country_id,
-            str($name)->append('_province_id')->trim('_')->toString()  => $place->province_id,
-            str($name)->append('_city_id')->trim('_')->toString()      => $place->city_id
-        ];
-    }
-}
